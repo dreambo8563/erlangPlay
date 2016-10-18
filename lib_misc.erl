@@ -1,5 +1,5 @@
 -module(lib_misc).
--export([for/3,qsort/1,pythag/1,perms/1]).
+-export([for/3,qsort/1,pythag/1,perms/1,test/1]).
 
 %% my custmized for loop
 %% control structure
@@ -16,7 +16,7 @@ qsort([Pivot|T]) ->
         qsort([X || X<-T,X>=Pivot]).
 
 %% =:= means equal
-%% we have a few guade for the List comprehension 
+%% we have a few conditions for the List comprehension 
 pythag(N) ->
     [{A,B,C}||A<- lists:seq(1,N),
               B<- lists:seq(1,N),
@@ -30,3 +30,8 @@ perms([])  ->
     [[]];
 perms(L) ->
     [[H|T] || H<-L,T<-perms(L -- [H])].
+
+
+
+listGuade(M) when is_list(M)->
+    M.
