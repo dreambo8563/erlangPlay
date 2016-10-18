@@ -1,5 +1,5 @@
 -module(lib_misc).
--export([for/3,qsort/1,pythag/1]).
+-export([for/3,qsort/1,pythag/1,perms/1]).
 
 %% my custmized for loop
 %% control structure
@@ -23,3 +23,10 @@ pythag(N) ->
               C<- lists:seq(1,N),
               A*A + B*B =:= C*C
     ].
+
+%% 排列组合
+%% List -- [element]   -> remove the element from the list
+perms([])  ->
+    [[]];
+perms(L) ->
+    [[H|T] || H<-L,T<-perms(L -- [H])].
