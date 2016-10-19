@@ -1,5 +1,5 @@
 -module(mylists).
--export([sum/1,map/2,filter/2,caseFilter/2]).
+-export([sum/1,map/2,filter/2,caseFilter/2,oh_god/1,max/2]).
 
 sum([H|T])           ->
     H+sum(T);
@@ -21,11 +21,17 @@ filter1(false,_,F,T) ->filter(F,T).
 caseFilter(F,[H|T])  ->
     case F(H) of
         true -> [H| caseFilter(F,T)];
-        false-> caseFilter(F,caseFilter(F,T))
+        false-> caseFilter(F,caseFilter(F,T)) 
     end;
 caseFilter(_,[])->
     [].
 
+oh_god(N) ->
+    if N =:= 2 -> might_succeed;
+       true -> always_does  %% this is Erlang's if's 'else!'
+    end.
 
-
-
+max(X,Y)->
+    if X>Y -> X;
+       true -> Y
+    end.        
