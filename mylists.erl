@@ -34,4 +34,4 @@ oh_god(N) ->
 max(X,Y)->
     if X>Y -> X;
        true -> Y
-    end.        
+    end.
