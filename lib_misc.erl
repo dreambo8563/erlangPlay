@@ -1,5 +1,5 @@
 -module(lib_misc).
--export([for/3,qsort/1,pythag/1,perms/1,listGuade/1,odds_and_evens/1,odds_and_evens_acc/1]).
+-export([for/3,qsort/1,pythag/1,perms/1,listGuade/1,odds_and_evens/1,odds_and_evens_acc/1,sleep/1,flush_buffer/0,test_flush/0]).
 
 %% my custmized for loop
 %% control structure
@@ -54,3 +54,24 @@ odds_and_evens_acc([H|T],Odds,Evens)->
 
 %% lists:reverse just reverse the order of elements in the list
 odds_and_evens_acc([],Odds,Evens) ->{lists:reverse(Odds),lists:reverse(Evens)}.
+
+%% sleep T time and return.
+sleep(T)->
+    receive
+        %% if in T times sleep didn't get any message matched, just return true
+    after T->true
+    end.
+
+%% immedidatly excute "clear mailbox"
+%% if we comment the after clause, this func will endless waiting for message when the mailbox empty.
+%% if mailbox is not empty, this func will deal with each one until empty. that's why we call this flush buffer.
+flush_buffer()->
+    io:format("test start"),
+    receive
+        _ -> io:format("will flush buffer"), flush_buffer()
+    after 0 -> true
+    end.
+test_flush()->
+    Pid = spawn(fun flush_buffer/0),
+    Pid!{test},
+    Pid.
