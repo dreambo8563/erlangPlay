@@ -11,5 +11,7 @@
     "files.associations": {
         "*.js": "javascriptreact",
         "*.css": "scss"
-    }
+    },
+    "erlang.enableExperimentalAutoComplete": true,
+     "erlang.erlangPath": "E:\\Tools\\erl8.1\\bin\\escript"
 }
