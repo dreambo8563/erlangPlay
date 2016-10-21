@@ -1,5 +1,5 @@
 -module(lib_misc).
--export([for/3,qsort/1,pythag/1,perms/1,listGuade/1,odds_and_evens/1,odds_and_evens_acc/1,sleep/1,flush_buffer/0,test_flush/0]).
+-export([for/3,qsort/1,pythag/1,perms/1,listGuade/1,odds_and_evens/1,odds_and_evens_acc/1,sleep/1,flush_buffer/0,test_flush/0,priority_receive/0,test_priority/0]).
 
 %% my custmized for loop
 %% control structure
@@ -74,4 +74,24 @@ flush_buffer()->
 test_flush()->
     Pid = spawn(fun flush_buffer/0),
     Pid!{test},
+    Pid.
+
+%% after create the process in 0 seconds, if no message matched, then output not matched &  end the process.
+%% if one message matched just after create the process, then output matched.
+priority_receive()->
+    receive
+        {alarm,X}->
+            io:format("matched ~p",[X])
+    after 0 ->
+            receive
+                Any ->
+                    io:format("not matched"),
+                    Any
+            end
+    end.
+
+test_priority()->
+    Pid = spawn(fun priority_receive/0),
+    Pid! {alarm,testgooo},    
+    Pid! {alarmnonon},
     Pid.
