@@ -76,7 +76,7 @@ test_flush()->
     Pid!{test},
     Pid.
 
-%% after create the process in 0 seconds, if no message matched, then output not matched &  end the process.
+%% after create the process in 0 seconds, if no message matched, then output not matched any value itself  &  end the process.
 %% if one message matched just after create the process, then output matched.
 priority_receive()->
     receive
